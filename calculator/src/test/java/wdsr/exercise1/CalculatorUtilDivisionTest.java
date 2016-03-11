@@ -2,6 +2,7 @@ package wdsr.exercise1;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -26,20 +27,24 @@ public class CalculatorUtilDivisionTest {
 		calculator = Mockito.mock(Calculator.class);
 		calcUtil = new CalculatorUtil(calculator);
 	}
-	
+
 	@Test
 	public void test16dividedBy4() {
-		fail("Not yet implemented");
-	}		
+		// given
+		doThrow(new IllegalArgumentException()).when(calculator).divide(anyInt(), not(eq(4)));
 
-	@Test(expected=IllegalArgumentException.class)
+		// when
+		calcUtil.getDivisionText(16, 4);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testDivisionByZero() {
 		// given
 		doThrow(new IllegalArgumentException()).when(calculator).divide(anyInt(), eq(0));
 
 		// when
 		calcUtil.getDivisionText(3, 0);
-		
+
 		// then
 		// empty - exception expected
 	}
