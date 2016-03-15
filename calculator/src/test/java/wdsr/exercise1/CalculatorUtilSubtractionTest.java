@@ -1,9 +1,13 @@
 package wdsr.exercise1;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,9 +27,14 @@ public class CalculatorUtilSubtractionTest {
 	@Test
 	public void test3minus1() {
 		// given
-		doThrow(new IllegalArgumentException()).when(calculator).modulo(not(eq(3)),not(eq(0)));
+		doReturn(2).when(calculator).subtract(anyInt(), anyInt());
 
 		// when
-		calcUtil.getSubstractionText(3, 1);
+		String result = calcUtil.getSubstractionText(3, 1);
+
+		// then
+		assertEquals("3 - 1 = 2", result);
+		verify(calculator).subtract(eq(3), eq(1)); // check if our calculator
+													// mock was really invoked.
 	}
 }

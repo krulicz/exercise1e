@@ -31,10 +31,15 @@ public class CalculatorUtilDivisionTest {
 	@Test
 	public void test16dividedBy4() {
 		// given
-		doThrow(new IllegalArgumentException()).when(calculator).divide(anyInt(), not(eq(4)));
+		doReturn((double)4).when(calculator).divide(anyInt(), anyInt());
 
 		// when
-		calcUtil.getDivisionText(16, 4);
+		String result = calcUtil.getDivisionText(16, 4);
+		
+		// then
+		assertEquals("16 / 4 = 4.0", result);
+		verify(calculator).divide(eq(16), eq(4)); // check if our calculator
+													// mock was really invoked.
 	}
 
 	@Test(expected = IllegalArgumentException.class)

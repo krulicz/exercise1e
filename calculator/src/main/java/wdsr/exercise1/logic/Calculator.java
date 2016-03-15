@@ -8,4 +8,5 @@ public interface Calculator {
     int subtract(int a, int b);
     double divide(int a, int b);
     int modulo(int a, int b);
+	void substract(int eq, int eq2);
 }
